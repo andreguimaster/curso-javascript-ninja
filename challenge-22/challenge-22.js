@@ -19,7 +19,7 @@
   contexto da função. Use um console.log por pessoa.
   */
   console.log( 'O nome das pessoas é:' );
-  
+
   function getFullName(){
     return this.name + ' ' + this.lastName;
   }
@@ -72,9 +72,9 @@
   da string. Mostre a representação em string dessa função no console.
   */
   console.log( '\nFunção que limpa entrada do usuário (somente números):' );
-  
+
   function justNumbers(string){
-    return string.match(/(\d)/g);
+    return string.match(/(\d+)/g);
   }
 
   /*
