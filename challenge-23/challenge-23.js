@@ -27,23 +27,8 @@
   */
   var $display = doc.querySelector('[data-js="display"]');
 
-  var $btDivisao = doc.querySelector('[data-js="btDivisao"]');
-  var $btMultiplicacao = doc.querySelector('[data-js="btMultiplicacao"]');
-  var $btSubtracao = doc.querySelector('[data-js="btSubtracao"]');
-  var $btSoma = doc.querySelector('[data-js="btSoma"]');
-  var $btResultado = doc.querySelector('[data-js="btResultado"]');
-
-  var functions = [];
-  functions.push(function(){ putInDisplay(0) });
-  functions.push(function(){ putInDisplay(1) });
-  functions.push(function(){ putInDisplay(2) });
-  functions.push(function(){ putInDisplay(3) });
-  functions.push(function(){ putInDisplay(4) });
-  functions.push(function(){ putInDisplay(5) });
-  functions.push(function(){ putInDisplay(6) });
-  functions.push(function(){ putInDisplay(7) });
-  functions.push(function(){ putInDisplay(8) });
-  functions.push(function(){ putInDisplay(9) });
+  var $calcButtons = doc.querySelectorAll('[data-js="calcButton"]');
+  var $btResult = doc.querySelector('[data-js="btResult"]');
 
   var operation = {
     '+' : function(a, b){return (+a) + (+b);},
@@ -52,31 +37,15 @@
     '/' : function(a, b){return (+a) / (+b);}
   }
 
-  $btDivisao.addEventListener('click', function(){
-    putInDisplay('/');
-  }, false);
+  Array.prototype.forEach.call($calcButtons, function(item){
+    item.addEventListener('click', function(){
+      putInDisplay(this.value);
+    }, false);
+  });
 
-  $btMultiplicacao.addEventListener('click', function(){
-    putInDisplay('*');
-  }, false);
-
-  $btSubtracao.addEventListener('click', function(){
-    putInDisplay('-');
-  }, false);
-
-  $btSoma.addEventListener('click', function(){
-    putInDisplay('+');
-  }, false);
-
-  $btResultado.addEventListener('click', function(){
+  $btResult.addEventListener('click', function(){
     calc();
   }, false);
-
-  for(var i = 0; i < 10; i++){
-    var btn = doc.querySelector('[data-js="bt'+ i +'"]');
-
-    btn.addEventListener('click', functions[i], false);
-  }
 
   function calc(){
     removeLastIfOperator();
@@ -98,7 +67,7 @@
   }
 
   function getOperators(){
-    return $display.value.match(/[+-/*]/g);
+    return $display.value.match(/[+\-\/*]/g);
   }
 
   function putInDisplay(valor){
