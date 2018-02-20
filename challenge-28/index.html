@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Challenge 20</title>
+    <title>Challenge 28</title>
     <style>
         body { font-family: sans-serif }
         label { display: block }
@@ -16,10 +16,34 @@
             <input type="text" />
             <button type="submit">Buscar</button>
         </div>
-        <div>
-            <button type="submit">Enviar</button>
-        </div>
     </form>
+
+    <div>
+        <p data-js="message">Digite o CEP para carregar as informações abaixo:</p>
+    </div>
+
+    <div id="resultado">
+        <div>
+            <label>Logradouro:</label>
+            <input type="text" data-js="logradouro" />
+        </div>
+        <div>
+            <label>Bairro:</label>
+            <input type="text" data-js="bairro" />
+        </div>
+        <div>
+            <label>Estado:</label>
+            <input type="text" data-js="estado" />
+        </div>
+        <div>
+            <label>Cidade:</label>
+            <input type="text" data-js="cidade" />
+        </div>
+        <div>
+            <label>CEP:</label>
+            <input type="text" data-js="cep" />
+        </div>
+    </div>
 
     <script src="challenge-28.js"></script>
 </body>

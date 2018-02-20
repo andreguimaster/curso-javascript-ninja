@@ -1,3 +1,5 @@
+(function(){
+  'use strict';
   /*
   No HTML:
   - Crie um formulário com um input de texto que receberá um CEP e um botão
@@ -25,3 +27,5 @@
   - Utilize a lib DOM criada anteriormente para facilitar a manipulação e
   adicionar as informações em tela.
   */
+
+})();
