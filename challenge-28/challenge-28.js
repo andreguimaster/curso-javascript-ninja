@@ -1,4 +1,4 @@
-(function(){
+(function(win, doc){
   'use strict';
   /*
   No HTML:
@@ -27,5 +27,103 @@
   - Utilize a lib DOM criada anteriormente para facilitar a manipulação e
   adicionar as informações em tela.
   */
+  function DOM(node){
+    this.element = doc.querySelectorAll(node);
+  }
 
-})();
+  DOM.prototype.on = function on(eventType, callbackFunction){
+    Array.prototype.forEach.call(this.element, function(item){
+      item.addEventListener(eventType, callbackFunction, false);
+    });
+  }
+
+  DOM.prototype.off = function off(eventType, callbackFunction){
+    Array.prototype.forEach.call(this.element, function(item){
+      item.removeEventListener(eventType, callbackFunction, false);
+    });
+  }
+
+  DOM.prototype.get = function get(){
+    return this.element;
+  }
+
+  var $inputCEP = new DOM('[data-js="cepIn"]');
+  var $buttonSubmit = new DOM('button[type="submit"]');
+  var $message = new DOM('[data-js="message"]');
+
+  $buttonSubmit.on('click', consultaCEP);
+
+  function consultaCEP(){
+    var ajax = new XMLHttpRequest();
+    ajax.open('GET', 'https://viacep.com.br/ws/'+getCEP()+'/json/');
+    ajax.send();
+  }
+
+  function setMessage(message){
+    $message.get().value = message;
+  }
+
+  function getCEP(){
+    return getOnlyNumbers($inputCEP.get().value);
+  }
+
+  function getOnlyNumbers(text){
+    return text.replace(/\D/, '');
+  }
+
+  DOM.prototype.forEach = function forEach(){
+    return Array.prototype.forEach.apply(this.element, arguments);
+  }
+
+  DOM.prototype.map = function map(){
+    return Array.prototype.map.apply(this.element, arguments);
+  }
+
+  DOM.prototype.filter = function filter(){
+    return Array.prototype.filter.apply(this.element, arguments);
+  }
+
+  DOM.prototype.reduce = function reduce(){
+    return Array.prototype.reduce.apply(this.element, arguments);
+  }
+
+  DOM.prototype.reduceRight = function reduceRight(){
+    return Array.prototype.reduceRight.apply(this.element, arguments);
+  }
+
+  DOM.prototype.every = function every(){
+    return Array.prototype.every.apply(this.element, arguments);
+  }
+
+  DOM.prototype.some = function some(){
+    return Array.prototype.some.apply(this.element, arguments);
+  }
+
+  DOM.prototype.isArray = function isArray(obj){
+    return Object.prototype.toString.call(obj) === "[object Array]";
+  }
+
+  DOM.prototype.isObject = function isObject(obj){
+    return Object.prototype.toString.call(obj) === "[object Object]";
+  }
+
+  DOM.prototype.isFunction = function isFunction(obj){
+    return Object.prototype.toString.call(obj) === "[object Function]";
+  }
+
+  DOM.prototype.isNumber = function isNumber(obj){
+    return Object.prototype.toString.call(obj) === "[object Number]";
+  }
+
+  DOM.prototype.isString = function isString(obj){
+    return Object.prototype.toString.call(obj) === "[object String]";
+  }
+
+  DOM.prototype.isBoolean = function isBoolean(obj){
+    return Object.prototype.toString.call(obj) === "[object Boolean]";
+  }
+
+  DOM.prototype.isNull = function isNull(obj){
+    return obj === null || obj === undefined;
+  }
+})(window, document);
