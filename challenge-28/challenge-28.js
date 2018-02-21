@@ -48,23 +48,59 @@
   }
 
   var $inputCEP = new DOM('[data-js="cepIn"]');
-  var $buttonSubmit = new DOM('button[type="submit"]');
+  var $buttonSubmit = new DOM('button[type="button"]');
   var $message = new DOM('[data-js="message"]');
+
+  var $logradouro = new DOM('[data-js="logradouro"]');
+  var $bairro = new DOM('[data-js="bairro"]');
+  var $estado = new DOM('[data-js="estado"]');
+  var $cidade = new DOM('[data-js="cidade"]');
+  var $cep = new DOM('[data-js="cep"]');
+
+  var ajax = new XMLHttpRequest();
 
   $buttonSubmit.on('click', consultaCEP);
 
-  function consultaCEP(){
-    var ajax = new XMLHttpRequest();
-    ajax.open('GET', 'https://viacep.com.br/ws/'+getCEP()+'/json/');
+  function consultaCEP(event){
+    setMessage('Buscando informações para o CEP ' + getCEP() + '.');
+
+    ajax.open('GET', 'https://viacep.com.br/ws/' + getCEP() + '/json/');
     ajax.send();
+
+    ajax.addEventListener('readystatechange', function(){
+      if(isRequestFail){
+        setMessage('Não encontramos o endereço para o CEP ' + getCEP() + '.');
+      }
+
+      if(isRequestOk()){
+        setMessage('Endereço referente ao CEP ' + getCEP() + ':')
+        setEndereco(JSON.parse(ajax.responseText));
+      }
+    });
   }
 
-  function setMessage(message){
-    $message.get().value = message;
+  function setEndereco(endereco){
+    $logradouro.get()[0].value = endereco.logradouro;
+    $bairro.get()[0].value = endereco.bairro;
+    $cidade.get()[0].value = endereco.localidade;
+    $estado.get()[0].value = endereco.uf;
+    $cep.get()[0].value = endereco.cep;
+  }
+
+  function isRequestOk(){
+    return ajax.readyState === 4 && ajax.status === 200;
+  }
+
+  function isRequestFail(){
+    return ajax.readyState === 4 && ajax.status === 0;
+  }
+
+  function setMessage(texto){
+    $message.get()[0].innerHTML = texto;
   }
 
   function getCEP(){
-    return getOnlyNumbers($inputCEP.get().value);
+    return getOnlyNumbers($inputCEP.get()[0].value);
   }
 
   function getOnlyNumbers(text){
