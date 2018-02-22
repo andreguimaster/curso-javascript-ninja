@@ -68,7 +68,7 @@
     ajax.send();
 
     ajax.addEventListener('readystatechange', function(){
-      if(isRequestFail){
+      if(isRequestFail()){
         setMessage('Não encontramos o endereço para o CEP ' + getCEP() + '.');
       }
 
