@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Challenge 29</title>
+    <style>
+        body { font-family: sans-serif }
+        label { display: block }
+        input { margin-bottom: 10px }
+    </style>
+</head>
+<body>
+    <header>
+        <h2 data-js="nomeCompanhia"></h2>
+        <p data-js="message">Telefone: <span data-js="telefoneCompanhia"></span></p>
+    </header>
+
+    <form action="." method="get" data-js="form-registro">
+        <div>
+            <label>Marca/Modelo:</label>
+            <input type="text" data-js="modelo" />
+        </div>
+        <div>
+            <label>Ano:</label>
+            <input type="text" data-js="ano" />
+        </div>
+        <div>
+            <label>Placa:</label>
+            <input type="text" data-js="placa" />
+        </div>
+        <div>
+            <label>Cor:</label>
+            <input type="text" data-js="cor" />
+        </div>
+        <div>
+            <button type="submit">Cadastrar</button>
+        </div>
+    </form>
+
+    <hr>
+
+    <div id="resultado">
+        <table border="1" data-js="tabela">
+            <thead>
+                <tr data-js="linhaTituloTabela">
+                    <th>Marca/Modelo</th>
+                    <th>Ano</th>
+                    <th>Placa</th>
+                    <th>Cor</th>
+                </tr>
+            </thead>
+
+            <tbody data-js="corpoTabela">
+            </tbody>
+        </table>
+
+
+    </div>
+
+    <script src="DOM.js"></script>
+    <script src="challenge-29.js"></script>
+</body>
+</html>
